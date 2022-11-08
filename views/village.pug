@@ -4,25 +4,26 @@ block content
   h1= title
   div(class="container-fluid")
     div(class="row")
-        - 
-            let results = [
-                {
-                "village_Name" : "Maryville",
-                "village_State" : "Missouri",
-                "village_Population" : 2500
-                },
-                {
-                "village_Name" : "Guntur",
-                "village_State" : "Andhra Pradesh",
-                "village_Population" : 500000
-                },
-                {
-                "village_Name" : "Hyderabad",
-                "village_State" : "Telangana",
-                "village_Population" : 2000000
-                },
+        - let items = results 
+            //- let results = [
+            //-     {
+            //-     "village_Name" : "Maryville",
+            //-     "village_State" : "Missouri",
+            //-     "village_Population" : 2500
+            //-     },
+            //-     {
+            //-     "village_Name" : "Guntur",
+            //-     "village_State" : "Andhra Pradesh",
+            //-     "village_Population" : 500000
+            //-     },
+            //-     {
+            //-     "village_Name" : "Hyderabad",
+            //-     "village_State" : "Telangana",
+            //-     "village_Population" : 2000000
+            //-     },
 
-            ]
+            //- ]
+        
         each v,index in results
             div(class="col-sm-2" onclick=`buy(${index})`) #{v.village_Name}<br><br>
             div(class="col-sm-2" onclick=`buy(${index})`) #{v.village_State}
@@ -34,3 +35,4 @@ block content
                             alert(`You purchased item ${itemNo+1}`)
                             document.getElementByClass("row").style.cursor = "cursor";
                       }
+            

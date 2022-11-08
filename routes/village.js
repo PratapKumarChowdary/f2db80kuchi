@@ -1,9 +1,7 @@
-var express = require('express');
-var router = express.Router();
-
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('village', { title: 'Search Results Village' });
-});
-
-module.exports = router;
+var express = require('express'); 
+const village_controlers= require('../controllers/village'); 
+var router = express.Router(); 
+ 
+/* GET Villages */ 
+router.get('/', village_controlers.village_view_all_Page ); 
+module.exports = router; 
