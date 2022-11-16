@@ -3,7 +3,7 @@ block content
   h1= title
 
   if (toShow == null)
-    h2 No instance to delete
+    h2 No instance to Update
   else
     - let villageId = toShow._id
     - let village_Name = toShow.village_Name
@@ -15,7 +15,7 @@ block content
     - let actionid = "/resource/villages/" + villageId
     form(id='VillageForm', action= actionid, method="PUT")
       div.form-group
-        label.villageAttr(for='village_Name') Village Ratings
+        label.villageAttr(for='village_Name') Village Name 
         input#village_Name(type='text' name='village_Name', value= village_Name )
       div.form-group
         label.villageAttr(for='village_State') Village State

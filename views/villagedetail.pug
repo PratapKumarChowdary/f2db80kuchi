@@ -1,22 +1,27 @@
 extends layout 
  
 block content 
-  h1= title 
+  #title Village Details
+  br 
+  if (toShow == null)
+    h2 No instance to Detail
+  else
  
-  - let villageid = toShow._id 
-  - let village_Name = toShow.village_Name 
-  - let village_State = toShow.village_State 
-  - let village_Population = toShow.village_Population 
-  div 
-    div.row 
-      div(class='villageAttr mr-3') Village ID is: 
-      div #{villageid} 
-    div.row 
-      div(class='villageAttr mr-3') Village Name is: 
-      div #{village_Name} 
-    div.row 
-      div(class='villageAttr mr-3') Village State is: 
-      div #{village_State} 
-    div.row 
-      div(class='villageAttr mr-3') Village Population is: 
-      div #{village_Population} 
+    - let villageid = toShow._id 
+    - let village_Name = toShow.village_Name 
+    - let village_State = toShow.village_State 
+    - let village_Population = toShow.village_Population 
+    div 
+      div.rowd 
+        div(class='villageAttr mr-3') Village ID is: 
+        div #{villageid}
+          
+      div.rowd 
+        div(class='villageAttr mr-3') Village Name is: 
+        div #{village_Name} 
+      div.rowd 
+        div(class='villageAttr mr-3') Village State is: 
+        div #{village_State} 
+      div.rowd 
+        div(class='villageAttr mr-3') Village Population is: 
+        div #{village_Population} 
