@@ -155,3 +155,17 @@ exports.village_update_Page =  async function(req, res) {
         res.send(`{'error': '${err}'}`); 
     } 
 }; 
+
+// Handle a delete one view with id from query 
+exports.village_delete_Page = async function(req, res) { 
+    console.log("Delete view for id "  + req.query.id) 
+    try{ 
+        result = await Village.findById(req.query.id) 
+        res.render('villagedelete', { title: 'Village Delete', toShow: 
+result }); 
+    } 
+    catch(err){ 
+        res.status(500) 
+        res.send(`{'error': '${err}'}`); 
+    } 
+}; 
