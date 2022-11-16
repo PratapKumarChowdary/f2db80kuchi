@@ -1,0 +1,34 @@
+extends layout 
+ 
+block content 
+  h1= title 
+ 
+  form(id='VillageForm', action="/resource/villages", method="POST") 
+    div.form-group 
+        label.villageAttr(for='village_Name') Village Name 
+        input#village_Name(type='text', name='village_Name') 
+    div.form-group 
+        label.villageAttr(for='village_State') Village State 
+        input#village_State(type='text', name='village_State') 
+    div.form-group 
+        label.villageAttr(for='village_Population') Village Population 
+        input#village_Population(type='number', name='village_Population') 
+    input(type="submit") 
+ 
+  script. 
+    document.forms['VillageForm'].addEventListener('submit', (event) => { 
+      event.preventDefault(); 
+      // TODO do something here to show user that form is being submitted 
+      fetch(event.target.action, { 
+        method: 'POST', 
+        body: new URLSearchParams(new FormData(event.target)) // event.target is the form 
+      }).then((resp) => { 
+        return resp.json(); // or resp.text() or whatever the server sends 
+      }).then((body) => { 
+        alert("Save succeded") 
+        // TODO handle body 
+      }).catch((error) => { 
+        // TODO handle error 
+        alert("Save failed " + error ) 
+      }); 
+    }); 
