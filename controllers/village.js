@@ -35,9 +35,22 @@ exports.village_create_post = async function(req, res) {
 // }; 
  
 // Handle Village delete form on DELETE. 
-exports.village_delete = function(req, res) { 
-    res.send('NOT IMPLEMENTED: Village delete DELETE ' + req.params.id); 
+// exports.village_delete = function(req, res) { 
+//     res.send('NOT IMPLEMENTED: Village delete DELETE ' + req.params.id); 
+// }; 
+
+exports.village_delete = async function(req, res) { 
+    console.log("delete "  + req.params.id) 
+    try { 
+        result = await Village.findByIdAndDelete( req.params.id) 
+        console.log("Removed " + result) 
+        res.send(result) 
+    } catch (err) { 
+        res.status(500) 
+        res.send(`{"error": Error deleting ${err}}`); 
+    } 
 }; 
+ 
  
 // Handle Village update form on PUT. 
 exports.village_update_put = function(req, res) { 
@@ -66,4 +79,51 @@ exports.village_view_all_Page = async function(req, res) {
         res.status(500); 
         res.send(`{"error": ${err}}`); 
     }   
+}; 
+
+// for a specific Village. 
+exports.village_detail = async function(req, res) { 
+    console.log("detail"  + req.params.id) 
+    try { 
+        result = await Village.findById( req.params.id) 
+        res.send(result) 
+    } catch (error) { 
+        res.status(500) 
+        res.send(`{"error": document for id ${req.params.id} not found`); 
+    } 
+}; 
+
+// Handle Costume update form on PUT. 
+exports.village_update_put = async function(req, res) { 
+    console.log(`update on id ${req.params.id} with body 
+${JSON.stringify(req.body)}`) 
+    try { 
+        let toUpdate = await Village.findById( req.params.id) 
+        // Do updates of properties 
+        if(req.body.village_Name)  
+               toUpdate.village_Name = req.body.village_Name; 
+        if(req.body.village_State) toUpdate.village_State = req.body.village_State; 
+        if(req.body.village_Population) toUpdate.village_Population = req.body.village_Population; 
+        let result = await toUpdate.save(); 
+        console.log("Sucess " + result) 
+        res.send(result) 
+    } catch (err) { 
+        res.status(500) 
+        res.send(`{"error": ${err}: Update for id ${req.params.id} 
+failed`); 
+    } 
+}; 
+
+// Handle a show one view with id specified by query 
+exports.village_view_one_Page = async function(req, res) { 
+    console.log("single view for id "  + req.query.id) 
+    try{ 
+        result = await Village.findById( req.query.id) 
+        res.render('villagedetail',  
+{ title: 'Village Detail', toShow: result }); 
+    } 
+    catch(err){ 
+        res.status(500) 
+        res.send(`{'error': '${err}'}`); 
+    } 
 }; 

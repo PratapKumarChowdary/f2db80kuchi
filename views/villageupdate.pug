@@ -1,0 +1,45 @@
+extends layout 
+ 
+block content 
+ h1= title 
+ if (toShow == null) 
+  h2 No instance to update 
+ else
+  - let villageid = toShow._id
+  - let village_Name = toShow.village_Name
+  - let village_State = toShow.village_State
+  - let village_Population = toShow.village_Population
+
+  div.row(class='mb-2')
+   div.mr-1 ID is
+   div #{villageid}
+  - let actionid = "/resource/village/" + villageid 
+  form(id='villageForm', action=actionid, method="PUT") 
+    div.form-group 
+        label.villageAttr(for='village_Name') village_Name 
+        input#village_Name(type='text', name='village_Name', value= village_Name) 
+    div.form-group 
+        label.villageAttr(for='village_State') village_State
+        input#village_State(type='text', name='village_State', value= village_State) 
+    div.form-group 
+        label.villageAttr(for='village_Population') village_Population 
+        input#village_Population(type='number', name='village_Population', value= village_Population) 
+    input(type="submit" class="btn btn-primary m-2") 
+ 
+  script. 
+    document.forms['villageForm'].addEventListener('submit', (event) => { 
+        event.preventDefault(); 
+        // TODO do something here to show user that form is being submitted 
+        fetch(event.target.action, { 
+            method: 'PUT', 
+            body: new URLSearchParams(new FormData(event.target)) // event.target is the form 
+        }).then((resp) => { 
+            return resp.json(); // or resp.text() or whatever the server sends 
+        }).then((body) => { 
+            alert("Update succeded") 
+            // TODO handle body 
+        }).catch((error) => { 
+            // TODO handle error 
+            alert("Update failed " + error ) 
+        }); 
+        });
