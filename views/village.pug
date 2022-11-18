@@ -24,15 +24,23 @@ block content
 
             //- ]
         
-        each v,index in results
-            div(class="col-sm-2" onclick=`buy(${index})`) #{v.village_Name}<br><br>
-            div(class="col-sm-2" onclick=`buy(${index})`) #{v.village_State}
-            div(class="col-sm-2" onclick=`buy(${index})`) #{v.village_Population}
-
+        //- each v,index in results
+        //-     div(class="col-sm-2" onclick=`buy(${index})`) #{v.village_Name}<br><br>
+        //-     div(class="col-sm-2" onclick=`buy(${index})`) #{v.village_State}
+        //-     div(class="col-sm-2" onclick=`buy(${index})`) #{v.village_Population}
+        div(class="container-fluid") 
+          div(class="row m-1") 
+            each item, index in items
+              - let destination = `dispatch(\"/village/update?id=${item._id}\")` 
+              div(class="row-sm-2", class="m-1" onclick=`buy(${index})`) Village: #{item.village_Name} of State: (#{item.village_State}) with Population  #{item.village_Population} 
+               button.btn( class="btn-primary ml-1", onclick= destination) Update 
             script.                
                       function buy(itemNo)
                       {
                             alert(`You purchased item ${itemNo+1}`)
                             document.getElementByClass("row").style.cursor = "cursor";
+                      }
+                      function dispatch(path){ 
+                          window.location.href=path 
                       }
             
